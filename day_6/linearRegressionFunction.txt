@@ -1,0 +1,19 @@
+# R&D on LinearRegression()
+
+# R&D on model.fit(X_train, y_train)
+
+# Create a 3D plot
+fig = plt.figure(figsize=(10, 6))
+ax = fig.add_subplot(111, projection="3d")
+
+# Generate a grid of values for prediction
+square_feet_range = np.linspace(df["Square_Feet"].min(), df["Square_Feet"].max(), 30)
+bedroom_count_range = np.linspace(df["Bedroom_Count"].min(), df["Bedroom_Count"].max(), 30)
+square_feet_grid, bedroom_count_grid = np.meshgrid(square_feet_range, bedroom_count_range)
+X_pred_grid = np.c_[square_feet_grid.ravel(), bedroom_count_grid.ravel()]
+
+# Predict prices for the grid
+y_pred_grid = model.predict(X_pred_grid).reshape(square_feet_grid.shape)
+
+# Plot regression surface
+ax.plot_surface(square_feet_grid, bedroom_count_grid, y_pred_grid, color="red", alpha=0.5)
